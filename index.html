@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="max-age=-1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="js/utils/notification/light-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="js/utils/notification/colored-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="js/utils/busy-load/app.min.css">
+    <link rel="stylesheet" href="js/utils/photoswipe/photoswipe.css">
+    <link rel="stylesheet" href="js/utils/photoswipe/default-skin/default-skin.css">
+    <title>旅法师营地-图片墙</title>
+    <script type="text/javascript">
+        /*页面自动设置Rem*/
+        (function (w, d, psd_w) {
+            var resizeTime = null,
+                waitTime = 300;
+
+            /*设置Html的FontSize*/
+            function changeRem() {
+                var width = d.documentElement.clientWidth,
+                    height = d.documentElement.clientHeight,
+                    fontSize = width / psd_w * 100;
+
+                if (fontSize > 100) fontSize = 100;
+                if (width / height >= 0.75) fontSize = 80;
+                d.documentElement.style.fontSize = fontSize + "px";
+            }
+
+            /*屏幕变化事件*/
+            w.addEventListener("onorientationchange" in w ? "orientationchange" : "resize", function () {
+                clearTimeout(resizeTime);
+                resizeTime = setTimeout(changeRem, waitTime);
+            }, false);
+            w.addEventListener("pageshow", function (w) {
+                w.persisted && (clearTimeout(resizeTime), resizeTime = setTimeout(changeRem, waitTime));
+            }, false);
+            d.addEventListener("DOMContentLoaded", changeRem, false);
+        }(window, document, 750));
+    </script>
+    <script src="js/utils/jquery-3.5.1.min.js"></script>
+    <script src="js/utils/AnalysysAgent_JS_SDK.min.js"></script>
+    <script src="js/utils/compressor.min.js"></script>
+    <script src="js/utils/crypto-js/crypto-js.js"></script>
+    <script src="js/utils/jquery.lazyload.min.js"></script>
+    <script src="js/utils/notification/growl-notification.min.js"></script>
+    <script src="js/utils/busy-load/app.min.js"></script>
+    <script src="js/utils/photoswipe/photoswipe.min.js"></script>
+    <script src="js/utils/photoswipe/photoswipe-ui-default.min.js"></script>
+    <script src="js/utils/utility.js"></script>
+    <script src="js/utils/gosUpload.js"></script>
+    <script src="js/utils/app-Interactive.js"></script>
+    <script src="js/index.js"></script>
+    <!-- <script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
+    <script>
+        // VConsole 默认会挂载到 `window.VConsole` 上
+        var vConsole = new window.VConsole();
+    </script>-->
+</head>
+<body>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="container">
+    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" class="image-upload">
+    <header class="header-box">
+        <ul class="order-box">
+            <li class="order-item active" data-order="1">最热</li>
+            <li class="order-item" data-order="2">最新</li>
+        </ul>
+    </header>
+    <div class="column-container">
+        <ul class="card-items left"></ul>
+        <ul class="card-items right"></ul>
+    </div>
+    <div class="suspension-area">
+        <div class="open-upload-area">+ 夏日分享</div>
+        <div class="refresh-page"></div>
+    </div>
+    <div class="upload-area">
+        <div class="up-image-box"></div>
+        <div class="up-image-action-box">
+            <div class="buttons">
+                <span class="cancel">取消</span>
+                <div class="right">
+                    <span class="reselect">重新选择</span>
+                    <span class="confirm">确认</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
